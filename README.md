@@ -1,119 +1,156 @@
+🚀 Real-Time Multilingual Query Handler
 
-Real-Time Multilingual Query Handler
+A robust Retrieval-Augmented Generation (RAG) system that breaks language barriers.
+This application allows users to ask customer support questions in any language, automatically:
 
-A robust Retrieval-Augmented Generation (RAG) system that breaks down language barriers. This application allows users to ask customer support questions in any language, translates them to English for processing, searches a knowledge base, and returns accurate answers in the user's native tongue.
+Detects the language
 
-Application Screenshots
+Translates user input to English
 
+Searches a custom multilingual knowledge base
+
+Generates an accurate response
+
+Translates the answer back to the user’s preferred language
+
+📸 Application Screenshots
 1. Main Interface
 
-The main chat interface where users can input queries in their preferred language.
-
-![alt text](image-1.png)
+A simple chat UI where users ask questions in their native language.
 
 2. Multilingual Response Example
 
-Example of the system detecting Hindi, translating to English, retrieving context, and answering.
+The system detects Hindi → translates → retrieves context → answers → translates back to Hindi.
 
-🚀 Features
+✨ Features
 
-Language Agnostic: Auto-detects and supports input in over 7 languages (Spanish, French, Chinese, Hindi, Arabic, etc.).
+🌍 Language Agnostic — Supports 7+ languages (Spanish, French, Hindi, Chinese, Arabic, German, etc.)
 
-Real-Time Translation: Powered by Groq's Llama 3 models for ultra-fast translation and response generation.
+⚡ Ultra-Fast Inference — Powered by Groq Llama-3.3 models via Groq API
 
-RAG Architecture: Retrieves accurate information from a custom knowledge base using ChromaDB vector search.
+🔎 RAG Pipeline — Uses ChromaDB + sentence-transformer embeddings to return accurate answers
 
-Transparent Process: Displays the detected language, the translated query, and the source documents used to generate the answer.
+🔄 Real-Time Translation — Automatic translation of user queries and responses
 
-Chat History: Keeps track of the conversation context for follow-up questions.
+📖 Transparent Debug Info — Shows detected language, translated text, and context documents
 
-🛠️ Tech Stack
+🧠 Chat Memory — Maintains conversation history for follow-up questions
 
-Frontend: Streamlit
+🏗️ Modular Code Structure — Easy to update, extend, and maintain
 
-LLM & Translation: Groq API (Llama-3.3-70b-versatile)
+🖥️ Streamlit UI — Clean and responsive frontend
 
-Vector Store: ChromaDB
+🧰 Tech Stack
+Frontend
 
-Embeddings: Sentence Transformers (all-MiniLM-L6-v2)
+Streamlit
 
-Orchestration: LangChain
+Backend
 
-Language: Python 3.10+
+Python 3.10+
+
+Groq API (Llama-3.3-70b-versatile)
+
+Sentence-Transformers (all-MiniLM-L6-v2)
+
+ChromaDB (Vector Search)
+
+LangChain (Orchestration)
 
 📂 Project Structure
-
 multilingual-query-handler/
+│
 ├── data/
-│   ├── raw/                  # Raw text files for knowledge base
-│   └── processed/            # Cleaned data
+│   ├── raw/            # Raw text files for knowledge base
+│   ├── processed/      # Cleaned data
+│   └── chunks/         # Chunked text
+│
 ├── src/
-│   ├── config.py             # Configuration settings (API keys, models)
-│   ├── data_collection.py    # Document loading logic
-│   ├── preprocessing.py      # Text cleaning
-│   ├── chunking.py           # Splitting text into manageable chunks
-│   ├── embeddings.py         # Vector store management
-│   ├── translation.py        # Translation logic using Groq
-│   └── query_engine.py       # Core RAG logic
+│   ├── config.py           # API keys & model configs
+│   ├── data_collection.py  # PDF/Text/Web loaders
+│   ├── preprocessing.py    # Cleaning pipeline
+│   ├── chunking.py         # Splitting text into chunks
+│   ├── embeddings.py       # Embedding & vector store management
+│   ├── translation.py      # Translation logic using Groq
+│   └── query_engine.py     # Core RAG logic
+│
 ├── ui/
-│   └── app.py                # Streamlit frontend application
-├── main.py                   # Script to build the knowledge base
-├── requirements.txt          # Python dependencies
-└── README.md                 # Project documentation
+│   └── app.py              # Streamlit chat frontend
+│
+├── tests/
+│   ├── test_translation.py
+│   ├── test_query.py
+│   └── test_pipeline.py
+│
+├── main.py                 # Build knowledge base pipeline
+├── requirements.txt        # Python dependencies
+└── README.md               # Project documentation
 
-
-⚙️ Installation & Setup
-
+🛠️ Installation & Setup
 1. Clone the Repository
+git clone https://github.com/your-username/Real-Time-Multilingual-Query-Handler.git
+cd Real-Time-Multilingual-Query-Handler
 
-git clone <repository-url>
-cd multilingual-query-handler
-
-
-2. Set Up Environment Variables
-
-Create a .env file in the root directory and add your Groq API key:
-
-GROQ_API_KEY=gsk_your_actual_api_key_here
-
+2. Create Virtual Environment
+python -m venv venv
+source venv/bin/activate   # Mac/Linux
+venv\Scripts\activate      # Windows
 
 3. Install Dependencies
-
-It is recommended to use a virtual environment.
-
 pip install -r requirements.txt
 
+4. Add API Keys (.env)
 
-Note: If you encounter errors with sentence-transformers, ensure huggingface-hub is up to date.
+Create a .env file:
 
-🏃‍♂️ Usage
+GROQ_API_KEY=your_key_here
+MONGODB_URI=your_mongo_uri
 
-Step 1: Build the Knowledge Base
+🧩 Building the Knowledge Base
 
-Before running the app, you must ingest your data into the vector store.
-
-Place your text files (e.g., multilingual_queries.txt) in data/raw/.
-
-Run the ingestion script:
+Run the pipeline to clean → chunk → embed → store data:
 
 python main.py
 
-
-This collects data, chunks it, and saves embeddings to ChromaDB.
-
-Step 2: Run the Application
-
-To start the web interface, run the following command from the root directory:
-
-PYTHONPATH=. streamlit run ui/app.py
+💬 Run the Chat Interface
+streamlit run ui/app.py
 
 
-Note on PYTHONPATH=.: This prefix is crucial. It ensures that Python can locate the modules inside the src/ folder when running the Streamlit app from the root.
+Then open the displayed URL to start chatting.
 
-Step 3: Access the App
+🧠 How the System Works
 
-Open your browser and navigate to the URL provided in the terminal, typically:
+1. Input Detection
+Auto-detects language using Groq models.
 
-Local: http://localhost:8501
+2. Translation to English
+Ensures knowledge base consistency.
 
-Codespaces: Click the "Forwarded Address" link in the Ports tab.
+3. Vector Search (RAG)
+Uses ChromaDB + embeddings.
+
+4. Answer Generation
+LLM constructs the final response.
+
+5. Translate Back to User Language
+Ensures localized output.
+
+🧪 Running Tests
+pytest tests/
+
+🤝 Contributing
+
+Pull requests are welcome!
+Feel free to improve translations, model selection, or add features.
+
+📜 License
+
+This project is licensed under the MIT License.
+
+🌟 Acknowledgments
+
+Groq for blazing fast inference
+
+LangChain & Sentence-Transformers
+
+Streamlit for UI simplicity
