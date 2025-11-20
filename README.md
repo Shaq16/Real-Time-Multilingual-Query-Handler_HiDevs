@@ -17,7 +17,7 @@ Translates the answer back to the user’s preferred language
 1. Main Interface
 
 A simple chat UI where users ask questions in their native language.
-
+<img width="1919" height="939" alt="image" src="https://github.com/user-attachments/assets/96db269b-4bf2-45c1-82fa-b74c40f6b3ad" />
 2. Multilingual Response Example
 
 The system detects Hindi → translates → retrieves context → answers → translates back to Hindi.
